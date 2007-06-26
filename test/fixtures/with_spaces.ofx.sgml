@@ -1,0 +1,28 @@
+OFXHEADER:100
+DATA:OFXSGML
+VERSION:102
+SECURITY:NONE
+ENCODING:USASCII
+CHARSET:1252
+COMPRESSION:NONE
+OLDFILEUID:NONE
+NEWFILEUID:NONE
+
+<OFX>
+  <SIGNONMSGSRSV1>
+    <SONRS>
+      <STATUS>
+        <CODE>   0
+        <SEVERITY>   INFO
+        <MESSAGE>   The user is authentic; operation succeeded.
+      </STATUS>
+      <DTSERVER>   20070623142635.169[-5:CDT]
+      <LANGUAGE>ENG
+      <FI>
+        <ORG>   U.S. Bank
+        <FID>   1402
+      </FI>
+      <INTU.BID>1402
+    </SONRS>
+  </SIGNONMSGSRSV1>
+</OFX>

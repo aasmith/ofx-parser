@@ -1,0 +1,87 @@
+OFXHEADER:100
+DATA:OFXSGML
+VERSION:102
+SECURITY:NONE
+ENCODING:USASCII
+CHARSET:1252
+COMPRESSION:NONE
+OLDFILEUID:NONE
+NEWFILEUID:NONE
+
+<OFX>
+  <SIGNONMSGSRSV1>
+    <SONRS>
+      <STATUS>
+        <CODE>0</CODE>
+        <SEVERITY>INFO</SEVERITY>
+        <MESSAGE>The user is authentic; operation succeeded.</MESSAGE>
+      </STATUS>
+      <DTSERVER>20070623142635.169[-5:CDT]</DTSERVER>
+      <LANGUAGE>ENG</LANGUAGE>
+      <FI>
+        <ORG>U.S. Bank</ORG>
+        <FID>1402</FID>
+      </FI>
+      <INTU.BID>1402</INTU.BID>
+    </SONRS>
+  </SIGNONMSGSRSV1>
+  <BANKMSGSRSV1>
+    <STMTTRNRS>
+      <TRNUID>9C24229A0077EAA50000011353C9E00743FC</TRNUID>
+      <STATUS>
+        <CODE>0</CODE>
+        <SEVERITY>INFO</SEVERITY>
+      </STATUS>
+      <STMTRS>
+        <CURDEF>USD</CURDEF>
+        <BANKACCTFROM>
+          <BANKID>033000033</BANKID>
+          <ACCTID>103333333333</ACCTID>
+          <ACCTTYPE>CHECKING</ACCTTYPE>
+        </BANKACCTFROM>
+        <BANKTRANLIST>
+          <DTSTART>20070604190000.000[-5:CDT]</DTSTART>
+          <DTEND>20070622190000.000[-5:CDT]</DTEND>
+          <STMTTRN>
+            <TRNTYPE>PAYMENT</TRNTYPE>
+            <DTPOSTED>20070606120000.000</DTPOSTED>
+            <TRNAMT>-11.11</TRNAMT>
+            <FITID>11111111 22</FITID>
+            <NAME>WEB AUTHORIZED PMT FOO INC</NAME>
+            <MEMO>Download from usbank.com. FOO INC</MEMO>
+          </STMTTRN>
+          <STMTTRN>
+            <TRNTYPE>CHECK</TRNTYPE>
+            <DTPOSTED>20070607120000.000</DTPOSTED>
+            <TRNAMT>-111.11</TRNAMT>
+            <FITID>22222A</FITID>
+            <CHECKNUM>0000009611</CHECKNUM>
+            <NAME>CHECK</NAME>
+            <MEMO>Download from usbank.com.</MEMO>
+          </STMTTRN>
+          <STMTTRN>
+            <TRNTYPE>DIRECTDEP</TRNTYPE>
+            <DTPOSTED>20070614120000.000</DTPOSTED>
+            <TRNAMT>1111.11</TRNAMT>
+            <FITID>X34AE33</FITID>
+            <NAME>ELECTRONIC DEPOSIT BAR INC</NAME>
+            <MEMO>Download from usbank.com. BAR INC</MEMO>
+          </STMTTRN>
+          <STMTTRN>
+            <TRNTYPE>CREDIT</TRNTYPE>
+            <DTPOSTED>20070619120000.000</DTPOSTED>
+            <TRNAMT>11.11</TRNAMT>
+            <FITID>8 8 9089743</FITID>
+            <NAME>ATM DEPOSIT US BANK ANYTOWNAS</NAME>
+            <MEMO>Download from usbank.com. US BANK ANYTOWN ASUS1</MEMO>
+          </STMTTRN>
+        </BANKTRANLIST>
+        <LEDGERBAL>
+          <BALAMT>1234.09</BALAMT>
+          <DTASOF>20070623142635.369[-5:CDT]</DTASOF>
+        </LEDGERBAL>
+      </STMTRS>
+    </STMTTRNRS>
+  </BANKMSGSRSV1>
+</OFX>
+
