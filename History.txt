@@ -1,3 +1,7 @@
+== 1.0.1
+
+* Added support for getting an initial list of accounts, see Ofx#signup_account_info
+
 == 1.0.0 / 2007-06-24
 
 * Initial release.

@@ -7,7 +7,7 @@ require 'date'
 end
 
 module OfxParser
-  VERSION = '1.0.0'
+  VERSION = '1.0.1'
 
   class OfxParser
 
@@ -79,6 +79,7 @@ module OfxParser
       ofx = Ofx.new
 
       ofx.sign_on = build_signon((doc/"SIGNONMSGSRSV1/SONRS"))
+      ofx.signup_account_info = build_info((doc/"SIGNUPMSGSRSV1/ACCTINFOTRNRS"))
       ofx.bank_account = build_bank((doc/"BANKMSGSRSV1/STMTTRNRS")) unless (doc/"BANKMSGSRSV1").empty?
       ofx.credit_card = build_credit((doc/"CREDITCARDMSGSRSV1/CCSTMTTRNRS")) unless (doc/"CREDITCARDMSGSRSV1").empty?
       #build_investment((doc/"SIGNONMSGSRQV1"))
@@ -96,6 +97,19 @@ module OfxParser
       sign_on.institute.name = ((doc/"FI")/"ORG").inner_text
       sign_on.institute.id = ((doc/"FI")/"FID").inner_text
       sign_on
+    end
+
+    def self.build_info(doc)
+      account_infos = []
+
+      (doc/"ACCTINFO").each do |info_doc|
+        acc_info = AccountInfo.new
+        acc_info.desc = (info_doc/"DESC").inner_text
+        acc_info.number = (info_doc/"ACCTID").inner_text
+        account_infos << acc_info
+      end
+
+      account_infos
     end
 
     def self.build_bank(doc)

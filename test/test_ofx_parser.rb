@@ -193,6 +193,17 @@ class OfxParserTest < Test::Unit::TestCase
     assert_equal '', transactions[2].memo
 
     assert_equal 1, ofx.accounts.size
+    assert_equal [], ofx.signup_account_info
+  end
+
+  def test_account_listing
+    ofx = OfxParser::OfxParser.parse(OFX_FILES[:list])
+
+    cc_info = ofx.signup_account_info.first
+    assert_equal 'CREDIT CARD ************1111', cc_info.desc
+    assert_equal 'XXXXXXXXXXXX1111', cc_info.number
+
+    assert_equal 0, ofx.accounts.size
   end
 
   def test_monetary_support_call

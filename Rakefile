@@ -11,7 +11,6 @@ Hoe.new('ofx-parser', OfxParser::VERSION) do |p|
   p.description = p.paragraphs_of('README.txt', 2..5).join("\n\n")
   p.url = 'http://ofx-parser.rubyforge.org/'
   p.changes = p.paragraphs_of('History.txt', 0..1).join("\n\n")
-  p.remote_rdoc_dir = '' # Release to root
   p.extra_deps << ["hpricot", ">= 0.6"]
   p.need_zip = true
   p.need_tar = false

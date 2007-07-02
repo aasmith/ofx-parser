@@ -10,7 +10,7 @@ module OfxParser
     end
 
     # Returns pennies for a given string amount, i.e:
-    #  '-123.45' => 12345
+    #  '-123.45' => -12345
     #  '123' => 12300
     def pennies_for(amount)
       return nil if amount == ""
@@ -47,7 +47,8 @@ module OfxParser
   # * currency symbols are an iso4217 3-letter code
   # * language is defined by iso639 3-letter code
   class Ofx
-    attr_accessor :header, :sign_on, :bank_account, :credit_card, :investment
+    attr_accessor :header, :sign_on, :signup_account_info,
+                  :bank_account, :credit_card, :investment
 
     def accounts
       accounts = []
@@ -61,6 +62,10 @@ module OfxParser
 
   class SignOn
     attr_accessor :status, :date, :language, :institute
+  end
+
+  class AccountInfo
+    attr_accessor :desc, :number
   end
 
   class Account

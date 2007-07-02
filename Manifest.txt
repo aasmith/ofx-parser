@@ -8,5 +8,6 @@ lib/ofx.rb
 lib/sic.rb
 test/fixtures/banking.ofx.sgml
 test/fixtures/creditcard.ofx.sgml
+test/fixtures/list.ofx.sgml
 test/fixtures/with_spaces.ofx.sgml
 test/test_ofx_parser.rb
