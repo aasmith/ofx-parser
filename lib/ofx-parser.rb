@@ -2,7 +2,7 @@ require 'hpricot'
 require 'time'
 require 'date'
 
-%w(class-extension ofx sic).each do |fn|
+%w(class-extension ofx mcc).each do |fn|
   require File.dirname(__FILE__) + "/#{fn}"
 end
 
@@ -32,9 +32,9 @@ module OfxParser
     # * header as a hash,
     # * body as an evily pre-processed string ready for parsing by hpricot.
     def self.pre_process(ofx)
-      header, body = ofx.split(/\n\n/)
+      header, body = ofx.split(/\n{2,}|:?<OFX>/, 2)
 
-      header = Hash[*header.split(/:|\n/)]
+      header = Hash[*header.gsub(/^\n+/,'').split(/:|\n/)]
 
       body.gsub!(/>\s+</m, '><')
       body.gsub!(/\s+</m, '<')

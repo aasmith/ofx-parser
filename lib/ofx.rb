@@ -145,7 +145,7 @@ module OfxParser
     end
 
     def sic_desc
-      Sic::CODES[sic]
+      Mcc::CODES[sic]
     end
   end
 

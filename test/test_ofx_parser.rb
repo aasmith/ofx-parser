@@ -164,7 +164,7 @@ class OfxParserTest < Test::Unit::TestCase
     assert_equal 'xx', transactions[0].fit_id
     assert_equal nil, transactions[0].check_number
     assert_equal '5912', transactions[0].sic
-    assert_equal OfxParser::Sic::CODES['5912'], transactions[0].sic_desc
+    assert_equal OfxParser::Mcc::CODES['5912'], transactions[0].sic_desc
     assert_equal 'WALGREEN      34638675 ANYTOWN', transactions[0].payee
     assert_equal '', transactions[0].memo
 
@@ -176,7 +176,7 @@ class OfxParserTest < Test::Unit::TestCase
     assert_equal 'yy-56', transactions[1].fit_id
     assert_equal nil, transactions[1].check_number
     assert_equal '7933', transactions[1].sic
-    assert_equal OfxParser::Sic::CODES['7933'], transactions[1].sic_desc
+    assert_equal OfxParser::Mcc::CODES['7933'], transactions[1].sic_desc
     assert_equal 'SUNSET BOWL            ANYTOWN', transactions[1].payee
     assert_equal '', transactions[1].memo
 
@@ -215,8 +215,12 @@ class OfxParserTest < Test::Unit::TestCase
 
     assert t.respond_to?(:amount_in_pennies)
     assert !t.respond_to?(:amount_in_whatever)
+  end
 
-
+  def test_malformed_header_parses
+    assert_nothing_raised do
+      OfxParser::OfxParser.parse(OFX_FILES[:malformed_header])
+    end
   end
 
   class X
