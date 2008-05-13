@@ -1,3 +1,9 @@
+== 1.0.2
+
+* Fixed error when header fields were empty. (steveg0493)
+* Fixed error with \r\n terminated responses. (brendan.ribera)
+* Sourced a more complete MCC list.
+
 == 1.0.1
 
 * Added support for getting an initial list of accounts, see Ofx#signup_account_info
