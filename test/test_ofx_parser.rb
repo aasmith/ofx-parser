@@ -10,7 +10,11 @@ class OfxParserTest < Test::Unit::TestCase
   # Load up the xml files
   Dir.open(fixtures_dir).each do |fn|
     next unless fn =~ /\.ofx\.sgml$/
-    OFX_FILES[fn.scan(/^[^.]*/).to_s.to_sym] = File.read(fixtures_dir + "/#{fn}")
+
+    ofx = File.read(fixtures_dir + "/#{fn}")
+    ofx.gsub!(/\r?\n/,"\r\n") # change line endings to \r\n
+
+    OFX_FILES[fn.scan(/^[^.]*/).to_s.to_sym] = ofx
   end
 
   def setup

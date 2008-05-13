@@ -34,7 +34,9 @@ module OfxParser
     def self.pre_process(ofx)
       header, body = ofx.split(/\n{2,}|:?<OFX>/, 2)
 
-      header = Hash[*header.gsub(/^\n+/,'').split(/:|\n/)]
+      header = Hash[*header.gsub(/^\r?\n+/,'').split(/\r\n/).collect do |e| 
+        e.split(/:/,2)
+      end.flatten]
 
       body.gsub!(/>\s+</m, '><')
       body.gsub!(/\s+</m, '<')
