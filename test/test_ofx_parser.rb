@@ -39,6 +39,7 @@ class OfxParserTest < Test::Unit::TestCase
 
   def test_parse_datetime
     assert_equal DateTime.civil(2007, 6, 22, 19, 0, 0, Rational(-5,24)), @parser.parse_datetime('20070622190000.200[-5:CDT]')
+    assert_equal DateTime.civil(2007, 6, 22, 19, 0, 0, Rational(9,24)), @parser.parse_datetime('20070622190000.200[+9.0:JST]')
     assert_equal DateTime.civil(2007, 6, 22), @parser.parse_datetime('20070622')
     assert_equal DateTime.civil(2007, 6, 22, 19, 0, 0), @parser.parse_datetime('20070622190000')
     assert_equal DateTime.civil(2007, 6, 22, 19, 0, 0), @parser.parse_datetime('20070622190000.200')
