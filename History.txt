@@ -1,3 +1,8 @@
+== 1.1.0
+
+* Works on Ruby 1.9! (Reported by Tim Holmes)
+* Fix time parsing with positive TZ offsets. (libkazz)
+
 == 1.0.2
 
 * Fixed error when header fields were empty. (steveg0493)
