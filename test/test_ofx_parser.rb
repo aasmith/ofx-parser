@@ -14,7 +14,7 @@ class OfxParserTest < Test::Unit::TestCase
     ofx = File.read(fixtures_dir + "/#{fn}")
     ofx.gsub!(/\r?\n/,"\r\n") # change line endings to \r\n
 
-    OFX_FILES[fn.scan(/^[^.]*/).to_s.to_sym] = ofx
+    OFX_FILES[fn.scan(/\w+/).first.to_sym] = ofx
   end
 
   def setup
@@ -230,6 +230,7 @@ class OfxParserTest < Test::Unit::TestCase
 
   class X
     include OfxParser::MonetarySupport
+    extend OfxParser::MonetaryClassSupport
     attr_accessor :amount
     monetary_vars :amount
   end

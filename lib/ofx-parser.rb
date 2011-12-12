@@ -3,7 +3,7 @@ require 'hpricot'
 require 'time'
 require 'date'
 
-%w(class-extension ofx mcc).each do |fn|
+%w(ofx mcc).each do |fn|
   require File.dirname(__FILE__) + "/#{fn}"
 end
 

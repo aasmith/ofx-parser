@@ -1,14 +1,15 @@
 module OfxParser
-  module MonetarySupport
+  module MonetaryClassSupport
 
-    @@monies ||= []
+    attr_accessor :monies
 
-    class_extension do
-      def monetary_vars(*methods) #:nodoc:
-        @@monies += methods
-      end
+    def monetary_vars(*methods) #:nodoc:
+      self.monies ||= []
+      self.monies += methods
     end
+  end
 
+  module MonetarySupport
     # Returns pennies for a given string amount, i.e:
     #  '-123.45' => -12345
     #  '123' => 12300
@@ -25,7 +26,7 @@ module OfxParser
 
     def monetary_method_call?(meth) #:nodoc:
       orig = original_method(meth)
-      @@monies.include?(orig) && meth.to_s == "#{orig}_in_pennies"
+      self.class.monies.include?(orig) && meth.to_s == "#{orig}_in_pennies"
     end
 
     def method_missing(meth, *args) #:nodoc:
@@ -77,6 +78,7 @@ module OfxParser
     attr_accessor :type, :balance, :balance_date
 
     include MonetarySupport
+    extend MonetaryClassSupport
     monetary_vars :balance
 
     undef type
@@ -89,6 +91,7 @@ module OfxParser
     attr_accessor :remaining_credit, :remaining_credit_date, :balance, :balance_date
 
     include MonetarySupport
+    extend MonetaryClassSupport
     monetary_vars :remaining_credit, :balance
   end
 
@@ -96,6 +99,7 @@ module OfxParser
     attr_accessor :broker_id, :positions, :margin_balance, :short_balance, :cash_balance
 
     include MonetarySupport
+    extend MonetaryClassSupport
     monetary_vars :margin_balance, :short_balance, :cash_balance
   end
 
@@ -108,6 +112,7 @@ module OfxParser
     attr_accessor :type, :date, :amount, :fit_id, :check_number, :sic, :memo, :payee
 
     include MonetarySupport
+    extend MonetaryClassSupport
     monetary_vars :amount
 
     TYPE = {
