@@ -2,7 +2,6 @@ History.txt
 Manifest.txt
 README.txt
 Rakefile
-lib/class-extension.rb
 lib/mcc.rb
 lib/ofx-parser.rb
 lib/ofx.rb
