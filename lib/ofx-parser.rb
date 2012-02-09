@@ -42,7 +42,7 @@ module OfxParser
       body.gsub!(/>\s+</m, '><')
       body.gsub!(/\s+</m, '<')
       body.gsub!(/>\s+/m, '>')
-      body.gsub!(/<(\w+?)>([^<]+)/m, '<\1>\2</\1>')
+      body.gsub!(/<([^>]+?)>([^<]+)/m, '<\1>\2</\1>')
 
       [header, body]
     end
