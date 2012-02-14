@@ -49,15 +49,11 @@ module OfxParser
   # * language is defined by iso639 3-letter code
   class Ofx
     attr_accessor :header, :sign_on, :signup_account_info,
-                  :bank_account, :credit_card, :investment
+                  :bank_accounts, :credit_accounts,
+                  :investment_accounts
 
     def accounts
-      accounts = []
-      [:bank_account, :credit_card, :investment].each do |method|
-        val = send(method)
-        accounts << val if val
-      end
-      accounts
+      [ bank_accounts, credit_accounts, investment_accounts ].flatten!.compact!
     end
   end
 
