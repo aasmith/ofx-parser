@@ -65,10 +65,10 @@ class OfxParserTest < Test::Unit::TestCase
     assert_equal 0, ofx.accounts.size
   end
 
-  def test_banking
+  def test_single_bank_account
     ofx = OfxParser::OfxParser.parse(OFX_FILES[:banking])
 
-    acct = ofx.bank_accounts.first
+    acct = silence_warnings { ofx.bank_account }
 
     assert_equal '103333333333', acct.number
     assert_equal '033000033', acct.routing_number
@@ -248,10 +248,10 @@ class OfxParserTest < Test::Unit::TestCase
 
   end
 
-  def test_creditcard
+  def test_single_credit_card
     ofx = OfxParser::OfxParser.parse(OFX_FILES[:creditcard])
 
-    acct = ofx.credit_accounts.first
+    acct = silence_warnings { ofx.credit_card }
 
     assert_equal 'XXXXXXXXXXXX1111', acct.number
     assert_equal '19000.99', acct.remaining_credit
@@ -435,5 +435,14 @@ class OfxParserTest < Test::Unit::TestCase
       assert_equal expected, x.amount_in_pennies, "#{actual.inspect} should give #{expected.inspect}"
     end
   end
+
+  private
+
+    def silence_warnings
+      old_verbose, $VERBOSE = $VERBOSE, nil
+      yield
+    ensure
+      $VERBOSE = old_verbose
+    end
 
 end

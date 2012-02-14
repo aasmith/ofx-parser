@@ -55,6 +55,16 @@ module OfxParser
     def accounts
       [ bank_accounts, credit_accounts, investment_accounts ].flatten!.compact!
     end
+
+    def bank_account #:nodoc:
+      warn "DEPRECATION WARNING: bank_account() is deprecated and may be removed from future releases, use bank_accounts() instead."
+      bank_accounts.first
+    end
+
+    def credit_card #:nodoc:
+      warn "DEPRECATION WARNING: credit_card() is deprecated and may be removed from future releases, use credit_accounts() instead."
+      credit_accounts.first
+    end
   end
 
   class SignOn
@@ -98,7 +108,6 @@ module OfxParser
     extend MonetaryClassSupport
     monetary_vars :margin_balance, :short_balance, :cash_balance
   end
-
 
   class Statement
     attr_accessor :currency, :transactions, :start_date, :end_date
