@@ -35,14 +35,14 @@ module OfxParser
     def self.pre_process(ofx)
       header, body = ofx.split(/\n{2,}|:?<OFX>/, 2)
 
-      header = Hash[*header.gsub(/^\r?\n+/,'').split(/\r\n/).collect do |e| 
+      header = Hash[*header.gsub(/^\r?\n+/,'').split(/\r\n/).collect do |e|
         e.split(/:/,2)
       end.flatten]
 
       body.gsub!(/>\s+</m, '><')
       body.gsub!(/\s+</m, '<')
       body.gsub!(/>\s+/m, '>')
-      body.gsub!(/<(\w+?)>([^<]+)/m, '<\1>\2</\1>')
+      body.gsub!(/<([^>]+?)>([^<]+)/m, '<\1>\2</\1>')
 
       [header, body]
     end
@@ -83,8 +83,20 @@ module OfxParser
 
       ofx.sign_on = build_signon((doc/"SIGNONMSGSRSV1/SONRS"))
       ofx.signup_account_info = build_info((doc/"SIGNUPMSGSRSV1/ACCTINFOTRNRS"))
-      ofx.bank_account = build_bank((doc/"BANKMSGSRSV1/STMTTRNRS")) unless (doc/"BANKMSGSRSV1").empty?
-      ofx.credit_card = build_credit((doc/"CREDITCARDMSGSRSV1/CCSTMTTRNRS")) unless (doc/"CREDITCARDMSGSRSV1").empty?
+
+      # Bank Accounts
+      bank_fragment = (doc/"BANKMSGSRSV1/STMTTRNRS")
+      ofx.bank_accounts = bank_fragment.collect do |fragment|
+        build_bank(fragment)
+      end
+
+      # Credit Cards
+      credit_card_fragment = (doc/"CREDITCARDMSGSRSV1/CCSTMTTRNRS")
+      ofx.credit_accounts = credit_card_fragment.collect do |fragment|
+        build_credit(fragment)
+      end
+
+      # Investments (?)
       #build_investment((doc/"SIGNONMSGSRQV1"))
 
       ofx

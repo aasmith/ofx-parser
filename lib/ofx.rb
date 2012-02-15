@@ -49,15 +49,21 @@ module OfxParser
   # * language is defined by iso639 3-letter code
   class Ofx
     attr_accessor :header, :sign_on, :signup_account_info,
-                  :bank_account, :credit_card, :investment
+                  :bank_accounts, :credit_accounts,
+                  :investment_accounts
 
     def accounts
-      accounts = []
-      [:bank_account, :credit_card, :investment].each do |method|
-        val = send(method)
-        accounts << val if val
-      end
-      accounts
+      [ bank_accounts, credit_accounts, investment_accounts ].flatten!.compact!
+    end
+
+    def bank_account #:nodoc:
+      warn "DEPRECATION WARNING: bank_account() is deprecated and may be removed from future releases, use bank_accounts() instead."
+      bank_accounts.first
+    end
+
+    def credit_card #:nodoc:
+      warn "DEPRECATION WARNING: credit_card() is deprecated and may be removed from future releases, use credit_accounts() instead."
+      credit_accounts.first
     end
   end
 
@@ -102,7 +108,6 @@ module OfxParser
     extend MonetaryClassSupport
     monetary_vars :margin_balance, :short_balance, :cash_balance
   end
-
 
   class Statement
     attr_accessor :currency, :transactions, :start_date, :end_date
