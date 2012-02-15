@@ -27,40 +27,42 @@ Supports bank accounts:
   require 'ofx-parser'
 
   ofx = OfxParser::OfxParser.parse(open("bank-statement.ofx"))
+  bank_acct = ofx.bank_accounts.first
 
-  ofx.bank_account.number # => '103333333333'
-  ofx.bank_account.routing_number # => '033000033'
-  ofx.bank_account.balance # => '123.45'
-  ofx.bank_account.balance_in_pennies # => 12345
+  bank_acct.number # => '103333333333'
+  bank_acct.routing_number # => '033000033'
+  bank_acct.balance # => '123.45'
+  bank_acct.balance_in_pennies # => 12345
 
-  ofx.bank_account.statement.start_date # => DateTime
-  ofx.bank_account.statement.end_date # => DateTime
+  bank_acct.statement.start_date # => DateTime
+  bank_acct.statement.end_date # => DateTime
 
-  ofx.bank_account.statement.transactions.size # => 4
+  bank_acct.statement.transactions.size # => 4
 
-  ofx.bank_account.statement.transactions.first.payee # => "FOO, INC."
-  ofx.bank_account.statement.transactions.first.type # => :DEBIT
-  ofx.bank_account.statement.transactions.first.amount # => '-11.11'
-  ofx.bank_account.statement.transactions.first.amount_in_pennies # => -1111
+  bank_acct.statement.transactions.first.payee # => "FOO, INC."
+  bank_acct.statement.transactions.first.type # => :DEBIT
+  bank_acct.statement.transactions.first.amount # => '-11.11'
+  bank_acct.statement.transactions.first.amount_in_pennies # => -1111
 
 Also supports credit cards...
 
   ofx = OfxParser::OfxParser.parse(open("creditcard-statement.ofx"))
+  credit_card = ofx.credit_accounts.first
 
-  ofx.credit_card.remaining_credit # => '19000.0'
-  ofx.credit_card.remaining_credit_in_pennies # => '1900000'
+  credit_card.remaining_credit # => '19000.0'
+  credit_card.remaining_credit_in_pennies # => '1900000'
 
-  ofx.credit_card.statement.start_date # => DateTime
-  ofx.credit_card.statement.end_date # => DateTime
+  credit_card.statement.start_date # => DateTime
+  credit_card.statement.end_date # => DateTime
 
-  ofx.credit_card.statement.transactions.size # => 10
+  credit_card.statement.transactions.size # => 10
 
-  ofx.credit_card.statement.transactions.first.type # => :DEBIT
-  ofx.credit_card.statement.transactions.first.amount # => '-19.17'
-  ofx.credit_card.statement.transactions.first.amount_in_pennies # => '-1917'
-  ofx.credit_card.statement.transactions.first.sic # => '7933'
-  ofx.credit_card.statement.transactions.first.sic_desc # => 'BOWLING CENTERS'
-  ofx.credit_card.statement.transactions.first.payee # => 'SUNSET BOWLING'
+  credit_card.statement.transactions.first.type # => :DEBIT
+  credit_card.statement.transactions.first.amount # => '-19.17'
+  credit_card.statement.transactions.first.amount_in_pennies # => '-1917'
+  credit_card.statement.transactions.first.sic # => '7933'
+  credit_card.statement.transactions.first.sic_desc # => 'BOWLING CENTERS'
+  credit_card.statement.transactions.first.payee # => 'SUNSET BOWLING'
 
 Working on investment accounts...
 
