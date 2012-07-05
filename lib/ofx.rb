@@ -72,7 +72,7 @@ module OfxParser
   end
 
   class AccountInfo
-    attr_accessor :desc, :number
+    attr_accessor :desc, :number, :bank_id, :type
   end
 
   class Account

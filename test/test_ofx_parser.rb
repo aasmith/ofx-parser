@@ -59,6 +59,32 @@ class OfxParserTest < Test::Unit::TestCase
     assert_equal '1402', ofx.sign_on.institute.id
   end
 
+  def test_account_info
+    ofx = OfxParser::OfxParser.parse(OFX_FILES[:account_info])
+
+    acct_info = ofx.signup_account_info.first
+
+    assert_equal '103333333333', acct_info.number
+    assert_equal '033000033', acct_info.bank_id
+    assert_equal "CHECKING", acct_info.type
+    assert_equal 'Online Checking', acct_info.desc
+  end
+
+  def test_accounts_info
+    ofx = OfxParser::OfxParser.parse(OFX_FILES[:accounts_info])
+
+    acct1_info = ofx.signup_account_info[0]
+    acct2_info = ofx.signup_account_info[1]
+
+    assert_equal '10333333333-0', acct1_info.number
+    assert_equal 'Auto Loan', acct1_info.desc
+
+    assert_equal '10333333333-1', acct2_info.number
+    assert_equal '033000033', acct2_info.bank_id
+    assert_equal "SAVINGS", acct2_info.type
+    assert_equal 'Savings', acct2_info.desc
+  end
+
   def test_no_accounts
     ofx = OfxParser::OfxParser.parse(OFX_FILES[:with_spaces])
 
