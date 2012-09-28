@@ -8,7 +8,7 @@ require 'date'
 end
 
 module OfxParser
-  VERSION = '1.1.0'
+  VERSION = '1.1.1'
 
   class OfxParser
 
