@@ -76,12 +76,12 @@ module OfxParser
   end
 
   class Account
-    attr_accessor :number, :statement, :transaction_uid, :routing_number
+    attr_accessor :number, :statement, :transaction_uid, :routing_number, :account_key
   end
 
   class BankAccount < Account
     TYPE = [:CHECKING, :SAVINGS, :MONEYMRKT, :CREDITLINE]
-    attr_accessor :type, :balance, :balance_date
+    attr_accessor :type, :balance, :balance_date, :branch_id
 
     include MonetarySupport
     extend MonetaryClassSupport
@@ -114,7 +114,7 @@ module OfxParser
   end
 
   class Transaction
-    attr_accessor :type, :date, :amount, :fit_id, :check_number, :sic, :memo, :payee
+    attr_accessor :type, :date, :amount, :fit_id, :check_number, :sic, :memo, :payee, :payee_id
 
     include MonetarySupport
     extend MonetaryClassSupport
