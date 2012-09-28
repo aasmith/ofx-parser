@@ -8,7 +8,7 @@ require 'date'
 end
 
 module OfxParser
-  VERSION = '1.1.0'
+  VERSION = '1.1.1'
 
   class OfxParser
 
@@ -135,6 +135,8 @@ module OfxParser
       acct.transaction_uid = (doc/"TRNUID").inner_text.strip
       acct.number = (doc/"STMTRS/BANKACCTFROM/ACCTID").inner_text
       acct.routing_number = (doc/"STMTRS/BANKACCTFROM/BANKID").inner_text
+      acct.branch_id = (doc/"STMTRS/BANKACCTFROM/BRANCHID").inner_text
+      acct.account_key = (doc/"STMTRS/BANKACCTFROM/ACCTKEY").inner_text
       acct.type = (doc/"STMTRS/BANKACCTFROM/ACCTTYPE").inner_text.strip
       acct.balance = (doc/"STMTRS/LEDGERBAL/BALAMT").inner_text
       acct.balance_date = parse_datetime((doc/"STMTRS/LEDGERBAL/DTASOF").inner_text)
@@ -156,6 +158,7 @@ module OfxParser
       acct = CreditAccount.new
 
       acct.number = (doc/"CCSTMTRS/CCACCTFROM/ACCTID").inner_text
+      acct.account_key = (doc/"CCSTMTRS/CCACCTFROM/ACCTKEY").inner_text
       acct.transaction_uid = (doc/"TRNUID").inner_text.strip
       acct.balance = (doc/"CCSTMTRS/LEDGERBAL/BALAMT").inner_text
       acct.balance_date = parse_datetime((doc/"CCSTMTRS/LEDGERBAL/DTASOF").inner_text)
@@ -183,6 +186,7 @@ module OfxParser
       transaction.amount = (t/"TRNAMT").inner_text
       transaction.fit_id = (t/"FITID").inner_text
       transaction.payee = (t/"PAYEE").inner_text + (t/"NAME").inner_text
+      transaction.payee_id = (t/"PAYEEID").inner_text
       transaction.memo = (t/"MEMO").inner_text
       transaction.sic = (t/"SIC").inner_text
       transaction.check_number = (t/"CHECKNUM").inner_text if transaction.type == :CHECK
