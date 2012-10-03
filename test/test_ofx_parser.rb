@@ -189,7 +189,7 @@ class OfxParserTest < Test::Unit::TestCase
     assert_equal DateTime.civil(2007,6,22,19,0,0,Rational(-5, 24)), statement.end_date
 
     transactions = statement.transactions
-    assert_equal 4, transactions.size
+    assert_equal 5, transactions.size
 
     assert_equal :PAYMENT, transactions[0].type
     assert_equal OfxParser::Transaction::TYPE[:PAYMENT], transactions[0].type_desc
@@ -238,6 +238,18 @@ class OfxParserTest < Test::Unit::TestCase
     assert_equal nil, transactions[3].sic_desc
     assert_equal 'ATM DEPOSIT US BANK ANYTOWNAS', transactions[3].payee
     assert_equal 'Download from usbank.com. US BANK ANYTOWN ASUS1', transactions[3].memo
+
+    assert_equal :DEBIT, transactions[4].type
+    assert_equal OfxParser::Transaction::TYPE[:DEBIT], transactions[4].type_desc
+    assert_equal DateTime.civil(2007,6,8,12,0,0), transactions[4].date
+    assert_equal '-111.12', transactions[4].amount
+    assert_equal -11112, transactions[4].amount_in_pennies
+    assert_equal '22222B', transactions[4].fit_id
+    assert_equal '0000009612', transactions[4].check_number
+    assert_equal nil, transactions[4].sic
+    assert_equal nil, transactions[4].sic_desc
+    assert_equal 'GENERIC PAYMENT', transactions[4].payee
+    assert_equal 'Download from San Diego Trust Bank', transactions[4].memo
 
     # Test Bank Account #2 ---------------------------------------------------
 
