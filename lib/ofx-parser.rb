@@ -185,7 +185,7 @@ module OfxParser
       transaction.payee = (t/"PAYEE").inner_text + (t/"NAME").inner_text
       transaction.memo = (t/"MEMO").inner_text
       transaction.sic = (t/"SIC").inner_text
-      transaction.check_number = (t/"CHECKNUM").inner_text if transaction.type == :CHECK
+      transaction.check_number = (t/"CHECKNUM").inner_text unless (t/"CHECKNUM").inner_text.empty?
       transaction
     end
 
