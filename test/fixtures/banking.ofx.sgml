@@ -75,15 +75,6 @@ NEWFILEUID:NONE
             <NAME>ATM DEPOSIT US BANK ANYTOWNAS</NAME>
             <MEMO>Download from usbank.com. US BANK ANYTOWN ASUS1</MEMO>
           </STMTTRN>
-          <STMTTRN>
-            <TRNTYPE>DEBIT</TRNTYPE>
-            <DTPOSTED>20070608120000.000</DTPOSTED>
-            <TRNAMT>-111.12</TRNAMT>
-            <FITID>22222B</FITID>
-            <CHECKNUM>0000009612</CHECKNUM>
-            <NAME>GENERIC PAYMENT</NAME>
-            <MEMO>Download from San Diego Trust Bank</MEMO>
-          </STMTTRN>
         </BANKTRANLIST>
         <LEDGERBAL>
           <BALAMT>1234.09</BALAMT>

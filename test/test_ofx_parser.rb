@@ -117,7 +117,7 @@ class OfxParserTest < Test::Unit::TestCase
     assert_equal OfxParser::Transaction::TYPE[:PAYMENT], transactions[0].type_desc
     assert_equal DateTime.civil(2007,6,6,12,0,0), transactions[0].date
     assert_equal '-11.11', transactions[0].amount
-    assert_equal -1111, transactions[0].amount_in_pennies
+    assert_equal(-1111, transactions[0].amount_in_pennies)
     assert_equal '11111111 22', transactions[0].fit_id
     assert_equal nil, transactions[0].check_number
     assert_equal nil, transactions[0].sic
@@ -129,7 +129,7 @@ class OfxParserTest < Test::Unit::TestCase
     assert_equal OfxParser::Transaction::TYPE[:CHECK], transactions[1].type_desc
     assert_equal DateTime.civil(2007,6,7,12,0,0), transactions[1].date
     assert_equal '-111.11', transactions[1].amount
-    assert_equal -11111, transactions[1].amount_in_pennies
+    assert_equal(-11111, transactions[1].amount_in_pennies)
     assert_equal '22222A', transactions[1].fit_id
     assert_equal '0000009611', transactions[1].check_number
     assert_equal nil, transactions[1].sic
@@ -195,7 +195,7 @@ class OfxParserTest < Test::Unit::TestCase
     assert_equal OfxParser::Transaction::TYPE[:PAYMENT], transactions[0].type_desc
     assert_equal DateTime.civil(2007,6,6,12,0,0), transactions[0].date
     assert_equal '-11.11', transactions[0].amount
-    assert_equal -1111, transactions[0].amount_in_pennies
+    assert_equal(-1111, transactions[0].amount_in_pennies)
     assert_equal '11111111 22', transactions[0].fit_id
     assert_equal nil, transactions[0].check_number
     assert_equal nil, transactions[0].sic
@@ -207,7 +207,7 @@ class OfxParserTest < Test::Unit::TestCase
     assert_equal OfxParser::Transaction::TYPE[:CHECK], transactions[1].type_desc
     assert_equal DateTime.civil(2007,6,7,12,0,0), transactions[1].date
     assert_equal '-111.11', transactions[1].amount
-    assert_equal -11111, transactions[1].amount_in_pennies
+    assert_equal(-11111, transactions[1].amount_in_pennies)
     assert_equal '22222A', transactions[1].fit_id
     assert_equal '0000009611', transactions[1].check_number
     assert_equal nil, transactions[1].sic
@@ -243,7 +243,7 @@ class OfxParserTest < Test::Unit::TestCase
     assert_equal OfxParser::Transaction::TYPE[:DEBIT], transactions[4].type_desc
     assert_equal DateTime.civil(2007,6,8,12,0,0), transactions[4].date
     assert_equal '-111.12', transactions[4].amount
-    assert_equal -11112, transactions[4].amount_in_pennies
+    assert_equal(-11112, transactions[4].amount_in_pennies)
     assert_equal '22222B', transactions[4].fit_id
     assert_equal '0000009612', transactions[4].check_number
     assert_equal nil, transactions[4].sic
@@ -296,7 +296,7 @@ class OfxParserTest < Test::Unit::TestCase
     assert_equal 1900099, acct.remaining_credit_in_pennies
     assert_equal DateTime.civil(2007,6,23,19,20,13), acct.remaining_credit_date
     assert_equal '-1111.01', acct.balance
-    assert_equal -111101, acct.balance_in_pennies
+    assert_equal(-111101, acct.balance_in_pennies)
     assert_equal DateTime.civil(2007,6,23,19,20,13), acct.balance_date
     assert_equal '0', acct.transaction_uid
 
@@ -313,7 +313,7 @@ class OfxParserTest < Test::Unit::TestCase
     assert_equal OfxParser::Transaction::TYPE[:DEBIT], transactions[0].type_desc
     assert_equal DateTime.civil(2007,5,10,17,0,0), transactions[0].date
     assert_equal '-19.17', transactions[0].amount
-    assert_equal -1917, transactions[0].amount_in_pennies
+    assert_equal(-1917, transactions[0].amount_in_pennies)
     assert_equal 'xx', transactions[0].fit_id
     assert_equal nil, transactions[0].check_number
     assert_equal '5912', transactions[0].sic
@@ -325,7 +325,7 @@ class OfxParserTest < Test::Unit::TestCase
     assert_equal OfxParser::Transaction::TYPE[:DEBIT], transactions[1].type_desc
     assert_equal DateTime.civil(2007,5,12,17,0,0), transactions[1].date
     assert_equal '-12.0', transactions[1].amount
-    assert_equal -1200, transactions[1].amount_in_pennies
+    assert_equal(-1200, transactions[1].amount_in_pennies)
     assert_equal 'yy-56', transactions[1].fit_id
     assert_equal nil, transactions[1].check_number
     assert_equal '7933', transactions[1].sic
@@ -362,7 +362,7 @@ class OfxParserTest < Test::Unit::TestCase
       assert_equal 1900099, acct.remaining_credit_in_pennies
       assert_equal DateTime.civil(2007,6,23,19,20,13), acct.remaining_credit_date
       assert_equal '-1111.01', acct.balance
-      assert_equal -111101, acct.balance_in_pennies
+      assert_equal(-111101, acct.balance_in_pennies)
       assert_equal DateTime.civil(2007,6,23,19,20,13), acct.balance_date
       assert_equal '0', acct.transaction_uid
 
@@ -379,7 +379,7 @@ class OfxParserTest < Test::Unit::TestCase
       assert_equal OfxParser::Transaction::TYPE[:DEBIT], transactions[0].type_desc
       assert_equal DateTime.civil(2007,5,10,17,0,0), transactions[0].date
       assert_equal '-19.17', transactions[0].amount
-      assert_equal -1917, transactions[0].amount_in_pennies
+      assert_equal(-1917, transactions[0].amount_in_pennies)
       assert_equal 'xx', transactions[0].fit_id
       assert_equal nil, transactions[0].check_number
       assert_equal '5912', transactions[0].sic
@@ -391,7 +391,7 @@ class OfxParserTest < Test::Unit::TestCase
       assert_equal OfxParser::Transaction::TYPE[:DEBIT], transactions[1].type_desc
       assert_equal DateTime.civil(2007,5,12,17,0,0), transactions[1].date
       assert_equal '-12.0', transactions[1].amount
-      assert_equal -1200, transactions[1].amount_in_pennies
+      assert_equal(-1200, transactions[1].amount_in_pennies)
       assert_equal 'yy-56', transactions[1].fit_id
       assert_equal nil, transactions[1].check_number
       assert_equal '7933', transactions[1].sic
