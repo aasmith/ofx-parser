@@ -1,6 +1,7 @@
+require 'minitest/autorun'
 require 'ofx-parser'
 
-class OfxParserTest < Minitest::Test
+class OfxParserTest < MiniTest::Unit::TestCase
 
   OFX_FILES = {}
 
