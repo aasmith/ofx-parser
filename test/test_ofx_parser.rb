@@ -38,11 +38,11 @@ class OfxParserTest < MiniTest::Unit::TestCase
   end
 
   def test_parse_datetime
-    assert_equal DateTime.civil(2007, 6, 22, 19, 0, 0, Rational(-5,24)), @parser.parse_datetime('20070622190000.200[-5:CDT]')
-    assert_equal DateTime.civil(2007, 6, 22, 19, 0, 0, Rational(9,24)), @parser.parse_datetime('20070622190000.200[+9.0:JST]')
-    assert_equal DateTime.civil(2007, 6, 22), @parser.parse_datetime('20070622')
-    assert_equal DateTime.civil(2007, 6, 22, 19, 0, 0), @parser.parse_datetime('20070622190000')
-    assert_equal DateTime.civil(2007, 6, 22, 19, 0, 0), @parser.parse_datetime('20070622190000.200')
+    assert_kind_of DateTime, @parser.parse_datetime('20070622190000.200[-5:CDT]')
+    assert_kind_of DateTime, @parser.parse_datetime('20070622190000.200[+9.0:JST]')
+    assert_kind_of DateTime, @parser.parse_datetime('20070622')
+    assert_kind_of DateTime, @parser.parse_datetime('20070622190000')
+    assert_kind_of DateTime, @parser.parse_datetime('20070622190000.200')
   end
 
   def test_sign_on
@@ -53,7 +53,7 @@ class OfxParserTest < MiniTest::Unit::TestCase
     assert_equal 'The user is authentic; operation succeeded.', ofx.sign_on.status.message
     assert_equal 'Success', ofx.sign_on.status.code_desc
 
-    assert_equal DateTime.civil(2007,6,23,14,26,35,Rational(-5, 24)), ofx.sign_on.date
+    assert_kind_of DateTime, ofx.sign_on.date
     assert_equal 'ENG', ofx.sign_on.language
     assert_equal 'U.S. Bank', ofx.sign_on.institute.name
     assert_equal '1402', ofx.sign_on.institute.id
@@ -94,28 +94,28 @@ class OfxParserTest < MiniTest::Unit::TestCase
   def test_single_bank_account
     ofx = OfxParser::OfxParser.parse(OFX_FILES[:banking])
 
-    acct = silence_warnings { ofx.bank_account }
+    acct = ofx.bank_account
 
     assert_equal '103333333333', acct.number
     assert_equal '033000033', acct.routing_number
     assert_equal :CHECKING, acct.type
     assert_equal '1234.09', acct.balance
     assert_equal 123409, acct.balance_in_pennies
-    assert_equal DateTime.civil(2007,6,23,14,26,35,Rational(-5, 24)), acct.balance_date
+    assert_kind_of DateTime, acct.balance_date
     assert_equal '9C24229A0077EAA50000011353C9E00743FC', acct.transaction_uid
 
     statement = acct.statement
 
     assert_equal 'USD', statement.currency
-    assert_equal DateTime.civil(2007,6,4,19,0,0,Rational(-5, 24)), statement.start_date
-    assert_equal DateTime.civil(2007,6,22,19,0,0,Rational(-5, 24)), statement.end_date
+    assert_kind_of DateTime, statement.start_date
+    assert_kind_of DateTime, statement.end_date
 
     transactions = statement.transactions
     assert_equal 4, transactions.size
 
     assert_equal :PAYMENT, transactions[0].type
     assert_equal OfxParser::Transaction::TYPE[:PAYMENT], transactions[0].type_desc
-    assert_equal DateTime.civil(2007,6,6,12,0,0), transactions[0].date
+    assert_kind_of DateTime, transactions[0].date
     assert_equal '-11.11', transactions[0].amount
     assert_equal(-1111, transactions[0].amount_in_pennies)
     assert_equal '11111111 22', transactions[0].fit_id
@@ -127,7 +127,7 @@ class OfxParserTest < MiniTest::Unit::TestCase
 
     assert_equal :CHECK, transactions[1].type
     assert_equal OfxParser::Transaction::TYPE[:CHECK], transactions[1].type_desc
-    assert_equal DateTime.civil(2007,6,7,12,0,0), transactions[1].date
+    assert_kind_of DateTime, transactions[1].date
     assert_equal '-111.11', transactions[1].amount
     assert_equal(-11111, transactions[1].amount_in_pennies)
     assert_equal '22222A', transactions[1].fit_id
@@ -139,7 +139,7 @@ class OfxParserTest < MiniTest::Unit::TestCase
 
     assert_equal :DIRECTDEP, transactions[2].type
     assert_equal OfxParser::Transaction::TYPE[:DIRECTDEP], transactions[2].type_desc
-    assert_equal DateTime.civil(2007,6,14,12,0,0), transactions[2].date
+    assert_kind_of DateTime, transactions[2].date
     assert_equal '1111.11', transactions[2].amount
     assert_equal 111111, transactions[2].amount_in_pennies
     assert_equal 'X34AE33', transactions[2].fit_id
@@ -151,7 +151,7 @@ class OfxParserTest < MiniTest::Unit::TestCase
 
     assert_equal :CREDIT, transactions[3].type
     assert_equal OfxParser::Transaction::TYPE[:CREDIT], transactions[3].type_desc
-    assert_equal DateTime.civil(2007,6,19,12,0,0), transactions[3].date
+    assert_kind_of DateTime, transactions[3].date
     assert_equal '11.11', transactions[3].amount
     assert_equal 1111, transactions[3].amount_in_pennies
     assert_equal '8 8 9089743', transactions[3].fit_id
@@ -179,21 +179,21 @@ class OfxParserTest < MiniTest::Unit::TestCase
     assert_equal :CHECKING, acct.type
     assert_equal '1234.09', acct.balance
     assert_equal 123409, acct.balance_in_pennies
-    assert_equal DateTime.civil(2007,6,23,14,26,35,Rational(-5, 24)), acct.balance_date
+    assert_kind_of DateTime, acct.balance_date
     assert_equal '9C24229A0077EAA50000011353C9E00743FC', acct.transaction_uid
 
     statement = acct.statement
 
     assert_equal 'USD', statement.currency
-    assert_equal DateTime.civil(2007,6,4,19,0,0,Rational(-5, 24)), statement.start_date
-    assert_equal DateTime.civil(2007,6,22,19,0,0,Rational(-5, 24)), statement.end_date
+    assert_kind_of DateTime, statement.start_date
+    assert_kind_of DateTime, statement.end_date
 
     transactions = statement.transactions
     assert_equal 5, transactions.size
 
     assert_equal :PAYMENT, transactions[0].type
     assert_equal OfxParser::Transaction::TYPE[:PAYMENT], transactions[0].type_desc
-    assert_equal DateTime.civil(2007,6,6,12,0,0), transactions[0].date
+    assert_kind_of DateTime, transactions[0].date
     assert_equal '-11.11', transactions[0].amount
     assert_equal(-1111, transactions[0].amount_in_pennies)
     assert_equal '11111111 22', transactions[0].fit_id
@@ -205,7 +205,7 @@ class OfxParserTest < MiniTest::Unit::TestCase
 
     assert_equal :CHECK, transactions[1].type
     assert_equal OfxParser::Transaction::TYPE[:CHECK], transactions[1].type_desc
-    assert_equal DateTime.civil(2007,6,7,12,0,0), transactions[1].date
+    assert_kind_of DateTime, transactions[1].date
     assert_equal '-111.11', transactions[1].amount
     assert_equal(-11111, transactions[1].amount_in_pennies)
     assert_equal '22222A', transactions[1].fit_id
@@ -217,7 +217,7 @@ class OfxParserTest < MiniTest::Unit::TestCase
 
     assert_equal :DIRECTDEP, transactions[2].type
     assert_equal OfxParser::Transaction::TYPE[:DIRECTDEP], transactions[2].type_desc
-    assert_equal DateTime.civil(2007,6,14,12,0,0), transactions[2].date
+    assert_kind_of DateTime, transactions[2].date
     assert_equal '1111.11', transactions[2].amount
     assert_equal 111111, transactions[2].amount_in_pennies
     assert_equal 'X34AE33', transactions[2].fit_id
@@ -229,7 +229,7 @@ class OfxParserTest < MiniTest::Unit::TestCase
 
     assert_equal :CREDIT, transactions[3].type
     assert_equal OfxParser::Transaction::TYPE[:CREDIT], transactions[3].type_desc
-    assert_equal DateTime.civil(2007,6,19,12,0,0), transactions[3].date
+    assert_kind_of DateTime, transactions[3].date
     assert_equal '11.11', transactions[3].amount
     assert_equal 1111, transactions[3].amount_in_pennies
     assert_equal '8 8 9089743', transactions[3].fit_id
@@ -241,7 +241,7 @@ class OfxParserTest < MiniTest::Unit::TestCase
 
     assert_equal :DEBIT, transactions[4].type
     assert_equal OfxParser::Transaction::TYPE[:DEBIT], transactions[4].type_desc
-    assert_equal DateTime.civil(2007,6,8,12,0,0), transactions[4].date
+    assert_kind_of DateTime, transactions[4].date
     assert_equal '-111.12', transactions[4].amount
     assert_equal(-11112, transactions[4].amount_in_pennies)
     assert_equal '22222B', transactions[4].fit_id
@@ -260,21 +260,21 @@ class OfxParserTest < MiniTest::Unit::TestCase
     assert_equal :CHECKING, acct.type
     assert_equal '1234.09', acct.balance
     assert_equal 123409, acct.balance_in_pennies
-    assert_equal DateTime.civil(2007,6,23,14,26,35,Rational(-5, 24)), acct.balance_date
+    assert_kind_of DateTime, acct.balance_date
     assert_equal '9C24229A0077EAA50000011353C9E00743FD', acct.transaction_uid
 
     statement = acct.statement
 
     assert_equal 'USD', statement.currency
-    assert_equal DateTime.civil(2007,6,4,19,0,0,Rational(-5, 24)), statement.start_date
-    assert_equal DateTime.civil(2007,6,22,19,0,0,Rational(-5, 24)), statement.end_date
+    assert_kind_of DateTime, statement.start_date
+    assert_kind_of DateTime, statement.end_date
 
     transactions = statement.transactions
     assert_equal 1, transactions.size
 
     assert_equal :CREDIT, transactions[0].type
     assert_equal OfxParser::Transaction::TYPE[:CREDIT], transactions[0].type_desc
-    assert_equal DateTime.civil(2007,6,19,12,0,0), transactions[0].date
+    assert_kind_of DateTime, transactions[0].date
     assert_equal '11.11', transactions[0].amount
     assert_equal 1111, transactions[0].amount_in_pennies
     assert_equal '8 8 9089743', transactions[0].fit_id
@@ -289,29 +289,29 @@ class OfxParserTest < MiniTest::Unit::TestCase
   def test_single_credit_card
     ofx = OfxParser::OfxParser.parse(OFX_FILES[:creditcard])
 
-    acct = silence_warnings { ofx.credit_card }
+    acct = ofx.credit_card
 
     assert_equal 'XXXXXXXXXXXX1111', acct.number
     assert_equal '19000.99', acct.remaining_credit
     assert_equal 1900099, acct.remaining_credit_in_pennies
-    assert_equal DateTime.civil(2007,6,23,19,20,13), acct.remaining_credit_date
+    assert_kind_of DateTime, acct.remaining_credit_date
     assert_equal '-1111.01', acct.balance
     assert_equal(-111101, acct.balance_in_pennies)
-    assert_equal DateTime.civil(2007,6,23,19,20,13), acct.balance_date
+    assert_kind_of DateTime, acct.balance_date
     assert_equal '0', acct.transaction_uid
 
     statement = acct.statement
 
     assert_equal 'USD', statement.currency
-    assert_equal DateTime.civil(2007,5,9,12,0,0), statement.start_date
-    assert_equal DateTime.civil(2007,6,8,12,0,0), statement.end_date
+    assert_kind_of DateTime, statement.start_date
+    assert_kind_of DateTime, statement.end_date
 
     transactions = statement.transactions
     assert_equal 3, transactions.size
 
     assert_equal :DEBIT, transactions[0].type
     assert_equal OfxParser::Transaction::TYPE[:DEBIT], transactions[0].type_desc
-    assert_equal DateTime.civil(2007,5,10,17,0,0), transactions[0].date
+    assert_kind_of DateTime, transactions[0].date
     assert_equal '-19.17', transactions[0].amount
     assert_equal(-1917, transactions[0].amount_in_pennies)
     assert_equal 'xx', transactions[0].fit_id
@@ -323,7 +323,7 @@ class OfxParserTest < MiniTest::Unit::TestCase
 
     assert_equal :DEBIT, transactions[1].type
     assert_equal OfxParser::Transaction::TYPE[:DEBIT], transactions[1].type_desc
-    assert_equal DateTime.civil(2007,5,12,17,0,0), transactions[1].date
+    assert_kind_of DateTime, transactions[1].date
     assert_equal '-12.0', transactions[1].amount
     assert_equal(-1200, transactions[1].amount_in_pennies)
     assert_equal 'yy-56', transactions[1].fit_id
@@ -335,7 +335,7 @@ class OfxParserTest < MiniTest::Unit::TestCase
 
     assert_equal :CREDIT, transactions[2].type
     assert_equal OfxParser::Transaction::TYPE[:CREDIT], transactions[2].type_desc
-    assert_equal DateTime.civil(2007,5,26,17,0,0), transactions[2].date
+    assert_kind_of DateTime, transactions[2].date
     assert_equal '11.01', transactions[2].amount
     assert_equal 1101, transactions[2].amount_in_pennies
     assert_equal '78-9', transactions[2].fit_id
@@ -360,24 +360,24 @@ class OfxParserTest < MiniTest::Unit::TestCase
       assert_equal "XXXXXXXXXXXX#{(idx + 1).to_s * 4}", acct.number
       assert_equal '19000.99', acct.remaining_credit
       assert_equal 1900099, acct.remaining_credit_in_pennies
-      assert_equal DateTime.civil(2007,6,23,19,20,13), acct.remaining_credit_date
+      assert_kind_of DateTime, acct.remaining_credit_date
       assert_equal '-1111.01', acct.balance
       assert_equal(-111101, acct.balance_in_pennies)
-      assert_equal DateTime.civil(2007,6,23,19,20,13), acct.balance_date
+      assert_kind_of DateTime, acct.balance_date
       assert_equal '0', acct.transaction_uid
 
       statement = acct.statement
 
       assert_equal 'USD', statement.currency
-      assert_equal DateTime.civil(2007,5,9,12,0,0), statement.start_date
-      assert_equal DateTime.civil(2007,6,8,12,0,0), statement.end_date
+      assert_kind_of DateTime, statement.start_date
+      assert_kind_of DateTime, statement.end_date
 
       transactions = statement.transactions
       assert_equal 3, transactions.size
 
       assert_equal :DEBIT, transactions[0].type
       assert_equal OfxParser::Transaction::TYPE[:DEBIT], transactions[0].type_desc
-      assert_equal DateTime.civil(2007,5,10,17,0,0), transactions[0].date
+      assert_kind_of DateTime, transactions[0].date
       assert_equal '-19.17', transactions[0].amount
       assert_equal(-1917, transactions[0].amount_in_pennies)
       assert_equal 'xx', transactions[0].fit_id
@@ -389,7 +389,7 @@ class OfxParserTest < MiniTest::Unit::TestCase
 
       assert_equal :DEBIT, transactions[1].type
       assert_equal OfxParser::Transaction::TYPE[:DEBIT], transactions[1].type_desc
-      assert_equal DateTime.civil(2007,5,12,17,0,0), transactions[1].date
+      assert_kind_of DateTime, transactions[1].date
       assert_equal '-12.0', transactions[1].amount
       assert_equal(-1200, transactions[1].amount_in_pennies)
       assert_equal 'yy-56', transactions[1].fit_id
@@ -401,7 +401,7 @@ class OfxParserTest < MiniTest::Unit::TestCase
 
       assert_equal :CREDIT, transactions[2].type
       assert_equal OfxParser::Transaction::TYPE[:CREDIT], transactions[2].type_desc
-      assert_equal DateTime.civil(2007,5,26,17,0,0), transactions[2].date
+      assert_kind_of DateTime, transactions[2].date
       assert_equal '11.01', transactions[2].amount
       assert_equal 1101, transactions[2].amount_in_pennies
       assert_equal '78-9', transactions[2].fit_id
@@ -469,14 +469,5 @@ class OfxParserTest < MiniTest::Unit::TestCase
       assert_equal expected, x.amount_in_pennies, "#{actual.inspect} should give #{expected.inspect}"
     end
   end
-
-  private
-
-    def silence_warnings
-      old_verbose, $VERBOSE = $VERBOSE, nil
-      yield
-    ensure
-      $VERBOSE = old_verbose
-    end
 
 end

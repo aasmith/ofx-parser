@@ -55,24 +55,7 @@ module OfxParser
     #
     # Returns a DateTime object. Milliseconds (XXX) are ignored.
     def self.parse_datetime(date)
-      if /\A\s*
-          (\d{4})(\d{2})(\d{2})           # YYYYMMDD            1,2,3
-          (?:(\d{2})(\d{2})(\d{2}))?      # HHMMSS  - optional  4,5,6
-          (?:\.(\d{3}))?                  # .XXX    - optional  7
-          (?:\[([-+]?[\.\d]+)\:\w{3}\])?  # [-n:TZ] - optional  8,9
-          \s*\z/ix =~ date
-        year = $1.to_i
-        mon = $2.to_i
-        day = $3.to_i
-        hour = $4.to_i
-        min = $5.to_i
-        sec = $6.to_i
-        # DateTime does not support usecs.
-        # usec = 0
-        # usec = $7.to_f * 1000000 if $7
-        off = Rational($8.to_i, 24) # offset as a fraction of day. :|
-        DateTime.civil(year, mon, day, hour, min, sec, off)
-      end
+      DateTime.parse date
     end
 
   private
