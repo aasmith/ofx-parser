@@ -22,7 +22,7 @@ class OfxParserTest < Minitest::Test
   end
 
   def test_pre_process_strips_spaces
-    header, body = @parser.pre_process(OFX_FILES[:with_spaces])
+    _header, body = @parser.pre_process(OFX_FILES[:with_spaces])
 
     assert_match(
       "<MESSAGE>The user is authentic; operation succeeded.</MESSAGE>", body,
@@ -31,7 +31,7 @@ class OfxParserTest < Minitest::Test
   end
 
   def test_pre_process_header
-    header, body = @parser.pre_process(OFX_FILES[:with_spaces])
+    header, _body = @parser.pre_process(OFX_FILES[:with_spaces])
 
     assert_equal 9, header.keys.size
   end
