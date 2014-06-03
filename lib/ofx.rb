@@ -157,6 +157,14 @@ module OfxParser
     def sic_desc
       Mcc::CODES[sic]
     end
+
+    def eql?(other)
+      self.fit_id == other.fit_id
+    end
+
+    def hash
+      self.fit_id.hash
+    end
   end
 
   class Position
