@@ -7,7 +7,6 @@ Hoe.plugin :gemspec
 Hoe.spec('ofx-parser') do |p|
   p.author = 'Andrew A. Smith'
   p.email = 'andy@tinnedfruit.org'
-  p.rubyforge_name = 'ofx-parser'
   p.summary = 'ofx-parser is a ruby library for parsing OFX 1.x data.'
   p.description = p.paragraphs_of('README.txt', 2..5).join("\n\n")
   p.urls = ['http://ofx-parser.rubyforge.org/']
