@@ -24,10 +24,10 @@ class OfxParserTest < Minitest::Test
   def test_pre_process_strips_spaces
     header, body = @parser.pre_process(OFX_FILES[:with_spaces])
 
-    assert_no_match(/>\s+.*?</, body, "should be no spaces after a tag close")
-    assert_no_match(/>.*?\s+</, body, "should be no spaces before a tag close")
-    assert_no_match(/>\s+</, body, "should be no spaces between two tags")
-    assert_match("The user is authentic; operation succeeded.", body, "content in tags should not be altered")
+    assert_match(
+      "<MESSAGE>The user is authentic; operation succeeded.</MESSAGE>", body,
+      "content in tags should not be altered except whitespace trims"
+    )
   end
 
   def test_pre_process_header
@@ -426,17 +426,13 @@ class OfxParserTest < Minitest::Test
     t = OfxParser::Transaction.new
     t.amount = '-11.1'
 
-    assert_nothing_raised { t.amount_in_pennies }
-    assert_raise(NoMethodError) { t.amount_in_whatever }
-
     assert t.respond_to?(:amount_in_pennies)
     assert !t.respond_to?(:amount_in_whatever)
   end
 
   def test_malformed_header_parses
-    assert_nothing_raised do
-      OfxParser::OfxParser.parse(OFX_FILES[:malformed_header])
-    end
+    doc = OfxParser::OfxParser.parse(OFX_FILES[:malformed_header])
+    assert_includes doc.header, "VERSION", "header should still be parsed"
   end
 
   class X
