@@ -1,7 +1,6 @@
-require 'test/unit'
 require 'ofx-parser'
 
-class OfxParserTest < Test::Unit::TestCase
+class OfxParserTest < Minitest::Test
 
   OFX_FILES = {}
 
