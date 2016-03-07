@@ -45,7 +45,7 @@ NEWFILEUID:NONE
           <STMTTRN>
             <TRNTYPE>PAYMENT</TRNTYPE>
             <DTPOSTED>20070606120000.000</DTPOSTED>
-            <TRNAMT>-.11</TRNAMT>
+            <TRNAMT>-11.11</TRNAMT>
             <FITID>11111111 22</FITID>
             <NAME>WEB AUTHORIZED PMT FOO INC</NAME>
             <MEMO>Download from usbank.com. FOO INC</MEMO>

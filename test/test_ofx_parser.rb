@@ -117,7 +117,7 @@ class OfxParserTest < MiniTest::Unit::TestCase
     assert_equal :PAYMENT, transactions[0].type
     assert_equal OfxParser::Transaction::TYPE[:PAYMENT], transactions[0].type_desc
     assert_kind_of DateTime, transactions[0].date
-    assert_equal '-.11', transactions[0].amount
+    assert_equal '-11.11', transactions[0].amount
     assert_equal(-1111, transactions[0].amount_in_pennies)
     assert_equal '11111111 22', transactions[0].fit_id
     assert_equal nil, transactions[0].check_number
@@ -460,6 +460,7 @@ class OfxParserTest < MiniTest::Unit::TestCase
       '1' => 100,
       '1.0' => 100,
       '-1.0' => -100,
+      '-.11' => -11,
       '' => nil
     }
 
