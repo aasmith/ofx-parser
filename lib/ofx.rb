@@ -11,14 +11,17 @@ module OfxParser
 
   module MonetarySupport
     # Returns pennies for a given string amount, i.e:
+    #  '-.45' => -45
     #  '-123.45' => -12345
     #  '123' => 12300
     def pennies_for(amount)
       return nil if amount == ""
       int, fraction = amount.scan(/\d+/)
+      int, fraction = 0, int if amount.match(/^-?\./)
       i = (fraction.to_s.strip =~ /[1-9]/) ? "#{int}#{fraction[0,2]}".to_i : int.to_i * 100
-      amount =~ /^\s*-\s*\d+/ ? -i : i
+      amount =~ /^\s*-\s*.?\d+/ ? -i : i
     end
+
 
     def original_method(meth) #:nodoc:
       meth.to_s.sub('_in_pennies','').to_sym rescue nil

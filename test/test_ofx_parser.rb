@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'ofx-parser'
+require 'pry'
 
 class OfxParserTest < MiniTest::Unit::TestCase
 
@@ -459,6 +460,7 @@ class OfxParserTest < MiniTest::Unit::TestCase
       '1' => 100,
       '1.0' => 100,
       '-1.0' => -100,
+      '-.11' => -11,
       '' => nil
     }
 
