@@ -1,23 +1,23 @@
-== Unreleased
+## Unreleased
 
 * Now supports parsing files that contain multiple bank and/or credit card accounts. (Justin Mecham)
 
-== 1.1.0
+## 1.1.0
 
 * Works on Ruby 1.9! (Reported by Tim Holmes)
 * Fix time parsing with positive TZ offsets. (libkazz)
 
-== 1.0.2
+## 1.0.2
 
 * Fixed error when header fields were empty. (steveg0493)
 * Fixed error with \r\n terminated responses. (brendan.ribera)
 * Sourced a more complete MCC list.
 
-== 1.0.1
+## 1.0.1
 
 * Added support for getting an initial list of accounts, see Ofx#signup_account_info
 
-== 1.0.0 / 2007-06-24
+## 1.0.0 / 2007-06-24
 
 * Initial release.
 

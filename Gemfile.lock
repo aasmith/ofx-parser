@@ -1,0 +1,28 @@
+PATH
+  remote: .
+  specs:
+    ofx-parser (1.1.0.20121129105223)
+      hpricot (>= 0.6)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    hpricot (0.8.6)
+    json (1.8.6)
+    minitest (5.14.2)
+    rake (13.0.1)
+    rdoc (3.12.2)
+      json (~> 1.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  hpricot (>= 0.6)
+  minitest
+  ofx-parser!
+  rake
+  rdoc (~> 3.10)
+
+BUNDLED WITH
+   2.1.4
